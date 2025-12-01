@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - CALEVORO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d0d0d;
+            color: #e0e0e0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #1a1a1a;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #fff;
+            font-family: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #fff;
+        }
+
+        .cart-button {
+            background: #fff;
+            color: #000;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .cart-button:hover {
+            background: #e0e0e0;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #000;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            right: 2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            color: #fff;
+            font-family: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            margin: 0;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-top: 1rem;
+        }
+
+        .hero-banner {
+            position: relative;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slideshow-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slideshow-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: slideshow 30s infinite;
+        }
+
+        .slideshow-image:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .slideshow-image:nth-child(2) {
+            animation-delay: 6s;
+        }
+
+        .slideshow-image:nth-child(3) {
+            animation-delay: 12s;
+        }
+
+        .slideshow-image:nth-child(4) {
+            animation-delay: 18s;
+        }
+
+        .slideshow-image:nth-child(5) {
+            animation-delay: 24s;
+        }
+
+        @keyframes slideshow {
+            0% { opacity: 0; }
+            5% { opacity: 1; }
+            20% { opacity: 1; }
+            25% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-header {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #2a2a2a;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2a2a2a;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: #2a2a2a;
+        }
+
+        .product-info {
+            padding: 1.2rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .add-cart-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-cart-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .add-cart-btn:disabled {
+            background: #555;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: #1a1a1a;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            background: #2a2a2a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #2a2a2a;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .cart-item-price {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .qty-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .qty-display {
+            padding: 0 0.5rem;
+            font-weight: 600;
+        }
+
+        .remove-item {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            background: #2a2a2a;
+            border-top: 1px solid #3a3a3a;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+
+        /* Checkout Form */
+        .checkout-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkout-form.active {
+            display: flex;
+        }
+
+        .form-container {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: #666;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .submit-btn, .cancel-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background: #fff;
+            color: #000;
+        }
+
+        .cancel-btn {
+            background: #555;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #666;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1a1a1a;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                display: none;
+                border-top: 1px solid #2a2a2a;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand-name">CALEVORO</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="landingpage.html">Home</a></li>
+                <li><a href="watches.html">Shop</a></li>
+                <li><a href="https://celevaro59.github.io/CELEVARO.github.io/">Perfumes</a></li>
+                <li>
+                    <button class="cart-button" onclick="openCart()">
+                        Cart
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </li>
+            </ul>
+            <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="hero-banner">
+            <div class="slideshow-background">
+                <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=1920" alt="Watch" class="slideshow-image">
+                <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1920" alt="Watch" class="slideshow-image">
+                <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?w=1920" alt="Watch" class="slideshow-image">
+                <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=1920" alt="Watch" class="slideshow-image">
+                <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=1920" alt="Watch" class="slideshow-image">
+            </div>
+            <div class="hero-content-wrapper">
+                <h1 class="page-title">CALEVORO</h1>
+                <p class="page-subtitle">Discover our collection of premium timepieces</p>
+            </div>
+        </div>
+
+        <!-- Watches Section -->
+        <div class="section">
+            <h2 class="section-header">WATCHES</h2>
+            <div class="products-grid" id="watchesGrid"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <button class="close-modal" onclick="closeCart()">&times;</button>
+            </div>
+            <div class="cart-items-list" id="cartItemsList"></div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>NPR <span id="totalPrice">0</span></span>
+                </div>
+                <button class="checkout-btn" onclick="proceedCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="checkout-form" id="checkoutForm">
+        <div class="form-container">
+            <h2>Checkout Details</h2>
+            <form onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+977 98******" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="someone@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="address" placeholder="Kathmandu" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn">Place Order</button>
+                    <button type="button" class="cancel-btn" onclick="closeCheckout()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CALEVORO. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const watchesProducts = [
+            { id: 1, name: "Rolex Submariner", price: 850000, image: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400" },
+            { id: 2, name: "Omega Seamaster", price: 650000, image: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=400" },
+            { id: 3, name: "TAG Heuer Carrera", price: 450000, image: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400" },
+            { id: 4, name: "Breitling Navitimer", price: 550000, image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=400" },
+            { id: 5, name: "Cartier Santos", price: 750000, image: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=400" },
+            { id: 6, name: "Patek Philippe Calatrava", price: 1200000, image: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400" },
+            { id: 7, name: "Audemars Piguet Royal Oak", price: 1500000, image: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400" },
+            { id: 8, name: "IWC Pilot's Watch", price: 480000, image: "https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400" },
+            { id: 9, name: "Jaeger-LeCoultre Reverso", price: 680000, image: "https://images.unsplash.com/photo-1526045431048-f857369baa09?w=400" },
+            { id: 10, name: "Panerai Luminor", price: 520000, image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400" },
+            { id: 11, name: "Hublot Big Bang", price: 780000, image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=400" },
+            { id: 12, name: "Zenith El Primero", price: 420000, image: "https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400" },
+            { id: 13, name: "Tudor Black Bay", price: 380000, image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=400" },
+            { id: 14, name: "Longines Master", price: 280000, image: "https://images.unsplash.com/photo-1585123334904-845d60e97b29?w=400" },
+            { id: 15, name: "Seiko Presage", price: 85000, image: "https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400" },
+            { id: 16, name: "Citizen Eco-Drive", price: 65000, image: "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?w=400" },
+            { id: 17, name: "Tissot PRX", price: 95000, image: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=400" },
+            { id: 18, name: "Hamilton Khaki Field", price: 120000, image: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400" },
+            { id: 19, name: "Oris Aquis", price: 250000, image: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400" },
+            { id: 20, name: "Bell & Ross BR 03", price: 420000, image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=400" }
+        ];
+
+        let cart = [];
+        const MAX_ITEMS = 5;
+
+        function renderProducts() {
+            const watchesGrid = document.getElementById('watchesGrid');
+            watchesGrid.innerHTML = watchesProducts.map(p => createProductCard(p)).join('');
+        }
+
+        function createProductCard(product) {
+            return `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">NPR ${formatPrice(product.price)}</div>
+                        <button class="add-cart-btn" onclick="addToCart(${product.id})" id="btn-${product.id}">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatPrice(price) {
+            return price.toLocaleString('en-US');
+        }
+
+        function addToCart(id) {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems >= MAX_ITEMS) {
+                alert(`Maximum ${MAX_ITEMS} items allowed in cart!`);
+                return;
+            }
+
+            const product = watchesProducts.find(p => p.id === id);
+            
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                if (totalItems < MAX_ITEMS) {
+                    existing.quantity++;
+                }
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCart();
+            updateButtons();
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItemsList = document.getElementById('cartItemsList');
+            const totalPrice = document.getElementById('totalPrice');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '<div class="empty-cart-msg">Your cart is empty</div>';
+                totalPrice.textContent = '0';
+                return;
+            }
+
+            cartItemsList.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">NPR ${formatPrice(item.price)}</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" onclick="decreaseQty(${item.id})">-</button>
+                            <span class="qty-display">${item.quantity}</span>
+                            <button class="qty-btn" onclick="increaseQty(${item.id})">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalPrice.textContent = formatPrice(total);
+        }
+
+        function increaseQty(id) {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems >= MAX_ITEMS) {
+                alert(`Maximum ${MAX_ITEMS} items allowed!`);
+                return;
+            }
+            
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity++;
+                updateCart();
+                updateButtons();
+            }
+        }
+
+        function decreaseQty(id) {
+            const item = cart.find(i => i.id === id);
+            if (item && item.quantity > 1) {
+                item.quantity--;
+                updateCart();
+                updateButtons();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+            updateButtons();
+        }
+
+        function updateButtons() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            watchesProducts.forEach(product => {
+                const btn = document.getElementById(`btn-${product.id}`);
+                if (btn) {
+                    if (totalItems >= MAX_ITEMS && !cart.find(item => item.id === product.id)) {
+                        btn.disabled = true;
+                        btn.textContent = 'Cart Full';
+                    } else {
+                        btn.disabled = false;
+                        btn.textContent = 'Add to Cart';
+                    }
+                }
+            });
+        }
+
+        function openCart() {
+            document.getElementById('cartModal').classList.add('active');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function proceedCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            closeCart();
+            document.getElementById('checkoutForm').classList.add('active');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutForm').classList.remove('active');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            alert(`Order Placed Successfully!\n\nTotal: NPR ${total}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\n\nThank you for shopping with CALEVORO!`);
+            
+            cart = [];
+            updateCart();
+            updateButtons();
+            closeCheckout();
+            
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('address').value = '';
+        }
+
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>

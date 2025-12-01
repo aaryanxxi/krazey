@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KRAZEY COLLECTIONS</title>
+    <title>CALEVORO</title>
     <style>
         * {
             margin: 0;
@@ -35,13 +35,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .brand-name {
             font-size: 1.5rem;
             font-weight: 300;
             letter-spacing: 4px;
-            font-family: 'Didot', 'Bodoni MT', serif;
+            font-family: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
         }
 
         .mobile-toggle {
@@ -51,6 +52,8 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            position: absolute;
+            right: 0;
         }
 
         nav ul {
@@ -78,8 +81,72 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
             padding: 0 2rem;
+            overflow: hidden;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: heroSlideshow 25s infinite;
+        }
+
+        .hero-slide:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .hero-slide:nth-child(2) {
+            animation-delay: 5s;
+        }
+
+        .hero-slide:nth-child(3) {
+            animation-delay: 10s;
+        }
+
+        .hero-slide:nth-child(4) {
+            animation-delay: 15s;
+        }
+
+        .hero-slide:nth-child(5) {
+            animation-delay: 20s;
+        }
+
+        @keyframes heroSlideshow {
+            0% { opacity: 0; }
+            4% { opacity: 0.3; }
+            20% { opacity: 0.3; }
+            24% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-content h1 {
@@ -87,35 +154,69 @@
             font-weight: 300;
             letter-spacing: 10px;
             margin-bottom: 1rem;
-            font-family: 'Didot', 'Bodoni MT', serif;
+            font-family: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
             animation: fadeInUp 1s ease;
         }
 
         .hero-content p {
             font-size: 1.3rem;
             letter-spacing: 3px;
-            opacity: 0.7;
+            opacity: 0.9;
             margin-bottom: 3rem;
             animation: fadeInUp 1s ease 0.2s backwards;
         }
 
-        .hero-cta {
-            display: inline-block;
-            padding: 1.2rem 3rem;
-            background: white;
-            color: black;
-            text-decoration: none;
-            font-weight: 600;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
+        .scroll-indicator {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
             animation: fadeInUp 1s ease 0.4s backwards;
         }
 
-        .hero-cta:hover {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-            padding: 1.2rem 3rem;
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .scroll-arrow span {
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-bottom: 2px solid white;
+            border-right: 2px solid white;
+            transform: rotate(45deg);
+            animation: scrollDown 2s infinite;
+        }
+
+        .scroll-arrow span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .scroll-arrow span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-10px, -10px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(10px, 10px);
+            }
         }
 
         @keyframes fadeInUp {
@@ -175,8 +276,8 @@
             background-image: url('assets/perfumes.png');
         }
 
-        .collections-card .category-image {
-            background-image: url('assets/collections.png');
+        .watches-card .category-image {
+            background-image: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1920');
         }
 
         .category-overlay {
@@ -302,25 +403,40 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <div class="brand-name">KRAZEY COLLECTIONS</div>
-            <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+            <div class="brand-name">CALEVORO</div>
             <nav>
                 <ul id="navMenu">
                     <li><a href="#home">HOME</a></li>
                     <li><a href="#shop">SHOP</a></li>
+                    <li><a href="watches.html">WATCHES</a></li>
                     <li><a href="https://celevaro59.github.io/CELEVARO.github.io/">PERFUMES</a></li>
-                    <li><a href="clothes-accessories.html">CLOTHES & ACCESSORIES</a></li>
                 </ul>
             </nav>
+            <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="hero-slideshow">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1920" alt="Watch" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=1920" alt="Watch" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?w=1920" alt="Watch" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=1920" alt="Watch" class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=1920" alt="Watch" class="hero-slide">
+        </div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>KRAZEY COLLECTIONS</h1>
+            <h1>CALEVORO</h1>
             <p>WHERE STYLE MEETS SOPHISTICATION</p>
-            <a href="#shop" class="hero-cta">EXPLORE NOW</a>
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -328,6 +444,15 @@
     <section class="categories" id="shop">
         <h2 class="section-title">SHOP BY CATEGORY</h2>
         <div class="category-grid">
+            <div class="category-card watches-card">
+                <div class="category-image"></div>
+                <div class="category-overlay">
+                    <h3 class="category-name">WATCHES</h3>
+                    <p class="category-desc">Luxury timepieces for the discerning</p>
+                    <a href="watches.html" class="category-link">SHOP NOW</a>
+                </div>
+            </div>
+
             <div class="category-card perfumes-card">
                 <div class="category-image"></div>
                 <div class="category-overlay">
@@ -336,22 +461,13 @@
                     <a href="https://celevaro59.github.io/CELEVARO.github.io/" class="category-link">SHOP NOW</a>
                 </div>
             </div>
-
-            <div class="category-card collections-card">
-                <div class="category-image"></div>
-                <div class="category-overlay">
-                    <h3 class="category-name">CLOTHES & COLLECTIONS</h3>
-                    <p class="category-desc">Premium clothing and accessories</p>
-                    <a href="clothes-accessories.html" class="category-link">SHOP NOW</a>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-bottom">
-            <p>&copy; 2024 KRAZEY COLLECTIONS. All Rights Reserved.</p>
+            <p>&copy; 2024 CALEVORO. All Rights Reserved.</p>
         </div>
     </footer>
 
