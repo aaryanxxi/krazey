@@ -26,6 +26,7 @@
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .header-content {
@@ -41,6 +42,15 @@
             font-weight: 300;
             letter-spacing: 4px;
             font-family: 'Didot', 'Bodoni MT', serif;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         nav ul {
@@ -216,50 +226,13 @@
         /* Footer */
         footer {
             background: #0a0a0a;
-            padding: 4rem 2rem 2rem;
+            padding: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: white;
+            margin-top: 5rem;
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.9rem;
             letter-spacing: 1px;
@@ -267,14 +240,30 @@
 
         /* Mobile */
         @media (max-width: 768px) {
-            .brand-name {
-                font-size: 1rem;
-                letter-spacing: 2px;
+            .mobile-toggle {
+                display: block;
             }
 
             nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 1rem;
                 gap: 1rem;
-                font-size: 0.8rem;
+                display: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .brand-name {
+                font-size: 1rem;
+                letter-spacing: 2px;
             }
 
             .hero-content h1 {
@@ -305,10 +294,7 @@
                 font-size: 2rem;
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+
         }
     </style>
 </head>
@@ -317,12 +303,13 @@
     <header>
         <div class="header-content">
             <div class="brand-name">KRAZEY COLLECTIONS</div>
+            <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
             <nav>
-                <ul>
+                <ul id="navMenu">
                     <li><a href="#home">HOME</a></li>
                     <li><a href="#shop">SHOP</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="https://celevaro59.github.io/CELEVARO.github.io/">PERFUMES</a></li>
+                    <li><a href="clothes-accessories.html">CLOTHES & ACCESSORIES</a></li>
                 </ul>
             </nav>
         </div>
@@ -346,14 +333,14 @@
                 <div class="category-overlay">
                     <h3 class="category-name">PERFUMES</h3>
                     <p class="category-desc">Exclusive fragrances for every occasion</p>
-                    <a href="perfumes.html" class="category-link">SHOP NOW</a>
+                    <a href="https://celevaro59.github.io/CELEVARO.github.io/" class="category-link">SHOP NOW</a>
                 </div>
             </div>
 
             <div class="category-card collections-card">
                 <div class="category-image"></div>
                 <div class="category-overlay">
-                    <h3 class="category-name">COLLECTIONS</h3>
+                    <h3 class="category-name">CLOTHES & COLLECTIONS</h3>
                     <p class="category-desc">Premium clothing and accessories</p>
                     <a href="clothes-accessories.html" class="category-link">SHOP NOW</a>
                 </div>
@@ -363,39 +350,15 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>ABOUT US</h3>
-                <ul>
-                    <li><a href="#about">Our Story</a></li>
-                    <li><a href="#about">Mission</a></li>
-                    <li><a href="#about">Careers</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>CUSTOMER SERVICE</h3>
-                <ul>
-                    <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#shipping">Shipping Info</a></li>
-                    <li><a href="#returns">Returns</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>FOLLOW US</h3>
-                <ul>
-                    <li><a href="#instagram">Instagram</a></li>
-                    <li><a href="#facebook">Facebook</a></li>
-                    <li><a href="#twitter">Twitter</a></li>
-                </ul>
-            </div>
-        </div>
-
         <div class="footer-bottom">
             <p>&copy; 2024 KRAZEY COLLECTIONS. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
